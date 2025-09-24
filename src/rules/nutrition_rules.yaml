@@ -1,0 +1,26 @@
+conditions:
+  diabetes:
+    max_carbs_g_per_serving: 45
+    max_sugar_g_per_serving: 12
+    min_fiber_g: 5
+  hypertension:
+    max_sodium_mg: 600
+    processed_meat_penalty: 0.3
+  celiac:
+    exclude_terms: ["wheat", "barley", "rye", "bulgur", "farro", "semolina", "couscous", "spelt"]
+  kidney_friendly:
+    max_sodium_mg: 600
+
+badges:
+  low_sodium: { threshold_mg: 300 }
+  low_carb:   { threshold_g: 30 }
+  low_sugar:  { threshold_g: 10 }
+  high_fiber: { threshold_g: 8 }
+  gluten_free:
+    requires_no_terms: ["wheat", "barley", "rye", "bulgur", "semolina", "couscous", "spelt"]
+
+weights:
+  nutrition: 0.45
+  pantry: 0.35
+  prep: 0.10
+  popularity: 0.10

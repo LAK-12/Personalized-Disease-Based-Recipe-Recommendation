@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>🍽️ Personalized Recipe Recommender</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="/static/style.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="wrap">
+    <h1>🍽️ Personalized Recipe Recommender</h1>
+    <p class="muted">Diet-aware suggestions based on your conditions and pantry. (Python + FAISS + ML)</p>
+
+    <!-- Profile panel -->
+    <div class="panel">
+      <h3>Profile</h3>
+      <div class="grid">
+        <div>
+          <label>Medical conditions</label>
+          <div class="chips">
+            <label><input type="checkbox" name="cond" value="diabetes"> Diabetes</label>
+            <label><input type="checkbox" name="cond" value="hypertension"> Hypertension</label>
+            <label><input type="checkbox" name="cond" value="celiac"> Celiac</label>
+            <label><input type="checkbox" name="cond" value="kidney_friendly"> Kidney-friendly</label>
+          </div>
+        </div>
+
+        <div>
+          <label>Allergies (comma-separated)</label>
+          <input id="allergies" type="text" placeholder="peanuts, dairy">
+        </div>
+
+        <div>
+          <label>Dislikes (comma-separated)</label>
+          <input id="dislikes" type="text" placeholder="anchovies">
+        </div>
+
+        <div class="full">
+          <label>Pantry items (one per line)</label>
+          <textarea id="pantry" placeholder="eggs&#10;spinach&#10;garlic"></textarea>
+        </div>
+
+        <div>
+          <label>Only show recipes that use ≥1 pantry item</label>
+          <input id="mustUsePantry" type="checkbox" checked>
+        </div>
+
+        <div>
+          <label>Minimum pantry match (%)</label>
+          <input id="minPantryPct" type="number" value="0" min="0" max="100" step="5">
+        </div>
+
+        <div>
+          <label>How many recipes?</label>
+          <input id="topk" type="number" value="10" min="1" max="20">
+        </div>
+
+        <div class="full">
+          <button id="goBtn">Recommend</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="resultsWrap" class="panel">
+      <h3>Recommendations</h3>
+      <div id="results" class="cards"></div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+
+</html>

@@ -3,19 +3,18 @@ pip>=25.0
 setuptools>=68
 wheel>=0.41
 
-# core libs (wheel-friendly)
+# core libs (wheel-friendly on Render)
 numpy==2.2.2
 pandas==2.3.2
 scikit-learn==1.5.2
 pyyaml==6.0.2
 faiss-cpu==1.12.0
 
-
-# HF stack (stable with ST 2.2.2)
-huggingface_hub==0.14.1
-transformers==4.30.2
-tokenizers==0.13.3
-sentence-transformers==2.2.2
+# NEW HF stack (compatible + available on Render)
+huggingface_hub==0.23.5
+transformers==4.44.2
+tokenizers==0.20.3
+sentence-transformers==2.5.1
 
 # Torch CPU wheels (Linux)
 torch==2.2.1

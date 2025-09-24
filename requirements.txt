@@ -1,27 +1,27 @@
-# tooling first
+# tooling
 pip>=24.2
 setuptools>=68
 wheel>=0.41
 
-# core libs (versions with manylinux wheels for py3.11)
+# core libs (manylinux wheels for py3.11)
 numpy==1.26.4
 pandas==2.2.2
 scikit-learn==1.4.2
 pyyaml==6.0.1
 faiss-cpu==1.8.0.post1
 
-# HF stack (compatible set to avoid building from source)
+# HF stack (known-good combo with ST 2.2.2)
 huggingface_hub==0.14.1
 transformers==4.30.2
 tokenizers==0.13.3
 sentence-transformers==2.2.2
 
-# Torch CPU wheel (installed from PyTorch CPU index)
-torch==2.2.1 ; platform_system != "Windows"
+# Torch CPU wheel from the official index (Linux)
+torch==2.2.1
 --extra-index-url https://download.pytorch.org/whl/cpu
 
 # web
 flask==3.0.0
 gunicorn==21.2.0
-# (only if you split frontend on GitHub Pages)
+# If you split frontend to GitHub Pages later:
 # flask-cors==4.0.0

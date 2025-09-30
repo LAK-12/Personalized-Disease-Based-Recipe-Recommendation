@@ -1,11 +1,10 @@
 from flask import Flask, request, jsonify, render_template
-from src.recommender import recommend  # uses your existing code
-
-app = Flask(__name__)  # looks for templates/ and static/ automatically
+from src.recommender import recommend  
+app = Flask(__name__)  
 
 @app.route("/")
 def home():
-    # Serves templates/index.html
+  
     return render_template("index.html")
 
 @app.route("/api/recommend", methods=["POST"])
@@ -30,5 +29,4 @@ def health():
     return jsonify({"ok": True})
 
 if __name__ == "__main__":
-    # debug=True for dev; remove for production
     app.run(host="127.0.0.1", port=5000, debug=True)

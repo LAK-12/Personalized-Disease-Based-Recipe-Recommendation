@@ -1,6 +1,5 @@
 """
 Train a simple logistic regression using weak labels from rules.
-Now includes 'sugar_g' in both labeling and features.
 """
 
 import os

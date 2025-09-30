@@ -77,7 +77,7 @@ def _hard_filter(df: pd.DataFrame,
   dislikes_l = {d.lower() for d in dislikes}
 
 
-# allergies & dislikes exclusion
+# allergies & dislikes 
   mask_allergies = filtered["ingredients_text"].str.lower().apply(lambda t: not any(a in t for a in allergies_l))
   mask_dislikes = filtered["ingredients_text"].str.lower().apply(lambda t: not any(d in t for d in dislikes_l))
   filtered = filtered[mask_allergies & mask_dislikes]
@@ -158,12 +158,12 @@ def recommend(
     rules = _load_rules()
     df = _load_df()
 
-    # Step 1: hard filter
+    # Hard filter
     filtered = _hard_filter(df, conditions, allergies, dislikes, rules)
     if filtered.empty:
         return []
 
-    # Step 2: vector search candidates
+    # Vector search candidates
     pantry_text = ", ".join(pantry).strip()
     if pantry_text:
         scores, idx = _vector_search(pantry_text, k=min(50, len(df)))
@@ -174,27 +174,26 @@ def recommend(
     else:
         cand = filtered.copy()
 
-    # --- Pantry filters (exact match and optional coverage) ---
+    #Pantry filters 
     if pantry:
         pantry_l = [p.strip().lower() for p in pantry if p.strip()]
 
         if must_use_pantry:
-            # Require at least ONE pantry token to appear in the ingredients text
+            # Require at least ONE pantry item to appear in the ingredients text
             cand = cand[cand["ingredients_text"].str.lower().apply(
                 lambda t: any(p in t for p in pantry_l)
             )]
 
         if min_pantry_coverage and min_pantry_coverage > 0.0:
-            # Enforce semantic coverage threshold (proportion of ingredients covered)
             def _cov(row):
                 return pantry_coverage(pantry, tokenize_ingredients(row["ingredients_text"]))
             cand = cand[cand.apply(_cov, axis=1) >= float(min_pantry_coverage)]
 
         if cand.empty:
-            # Strict behavior: if filters removed everything, return no results
+            #If filters removed everything, return no results
             return []
 
-    # Step 3: ML model (optional but enabled by default)
+    #ML model 
     clf = _load_clf()
 
     w = rules["weights"]
@@ -207,7 +206,7 @@ def recommend(
         prep = _prep_score(r.get("prep_minutes", 20))
         popularity = 0.5
 
-        # model features (simple, interpretable)
+        # model features
         X = np.array([[
           r.get("calories",0), r.get("carbs_g",0), r.get("sugar_g",0),
           r.get("protein_g",0), r.get("fat_g",0), r.get("fiber_g",0),
@@ -217,7 +216,6 @@ def recommend(
         ml_prob = float(predict_probability(clf, X)) if clf is not None else 0.5
 
         final = (w["nutrition"]*nutrition + w["pantry"]*pantry_score + w["prep"]*prep + w["popularity"]*popularity)
-        # blend in ML as tie-breaker / bonus
         final = 0.85*final + 0.15*ml_prob
 
         rows.append({

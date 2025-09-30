@@ -1,4 +1,4 @@
-/* ========= theme ========= */
+
 :root{
   --bg:#0b1220;
   --panel:#121a2b;
@@ -18,12 +18,11 @@ html,body{
   font: 14.5px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
 }
 
-/* ========= layout ========= */
 .wrap{ max-width:1100px; margin:28px auto; padding:0 16px; }
 h1{ margin:.2rem 0 .25rem; font-weight:800; letter-spacing:.2px; }
 .muted{ color:var(--muted); margin:0 0 18px; }
 
-/* panels / cards */
+/* cards */
 .card, .panel{
   background:var(--panel);
   border:1px solid var(--line);
@@ -33,16 +32,16 @@ h1{ margin:.2rem 0 .25rem; font-weight:800; letter-spacing:.2px; }
 }
 .cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px; }
 
-/* form grid */
+/* grid */
 .grid{
   display:grid;
   grid-template-columns:repeat(12,1fr);
   gap:12px;
 }
-.grid > *{ grid-column: span 6; }          /* 2 columns by default */
-.grid .full{ grid-column: 1 / -1; }        /* full width row */
+.grid > *{ grid-column: span 6; }          
+.grid .full{ grid-column: 1 / -1; }       
 @media (max-width: 800px){
-  .grid > *{ grid-column: 1 / -1; }        /* stack on small screens */
+  .grid > *{ grid-column: 1 / -1; }        
 }
 
 /* inputs */
@@ -60,12 +59,11 @@ textarea{
 textarea{ min-height:120px; resize:vertical; }
 label{ display:block; color:var(--muted); margin:0 0 6px; }
 
-/* checkboxes line */
+
 .chips{ display:flex; flex-wrap:wrap; gap:8px; }
 .chips label{ color:var(--text); background:var(--panel-2); border:1px solid var(--line); padding:6px 10px; border-radius:999px; cursor:pointer; }
 .chips input{ margin-right:6px; }
 
-/* actions */
 button{
   background:var(--accent);
   color:#08160e;
